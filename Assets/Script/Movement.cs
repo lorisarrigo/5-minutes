@@ -8,7 +8,7 @@ public class Movement : MonoBehaviour
     Rigidbody2D rb;
 
     //Movement
-    [SerializeField] float speed;
+    [SerializeField] float baseSpeed, sprintSpeed, currentSpeed;
 
     //Jump
     [SerializeField] LayerMask ground;
@@ -37,9 +37,13 @@ public class Movement : MonoBehaviour
     private void FixedUpdate()
     {
         Vector2 move = inputs.Player.Movement.ReadValue<Vector2>();
+        if (inputs.Player.Sprint.IsPressed())
+            currentSpeed = sprintSpeed;
+        else
+            currentSpeed = baseSpeed;
         if (move != Vector2.zero)
         {
-            Vector2 position = rb.position + Time.fixedDeltaTime * speed * move;
+            Vector2 position = rb.position + Time.fixedDeltaTime * currentSpeed * move;
             rb.position = position;
         }
 
