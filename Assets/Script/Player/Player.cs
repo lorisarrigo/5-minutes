@@ -1,29 +1,37 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Movement : MonoBehaviour
+public class Player : MonoBehaviour, IDamageable
 {
     InputMap inputs;
 
     Rigidbody2D rb;
 
     //Movement
-    [SerializeField] float baseSpeed, sprintSpeed, currentSpeed;
+    [SerializeField] float baseSpeed, sprintSpeed, currentSpeed; //speed variables
 
     //Jump
     [SerializeField] LayerMask ground;
     [SerializeField] Transform groundCheck;
-    [SerializeField] float radius;
     [SerializeField] float jumpForce;
+    [SerializeField] float radius; //range of the GroundCheck
     bool IsGrounded = false;
 
-
+    //health
+    [SerializeField] float maxHealth;
+    public float currentHealth;
+    public static event Action OnGO;
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         inputs = new InputMap();
     }
 
+    private void Start()
+    {
+        currentHealth = maxHealth;
+    }
     private void OnEnable()
     {
         inputs.Enable();
@@ -34,6 +42,7 @@ public class Movement : MonoBehaviour
         inputs.Disable();
         inputs.Player.Jump.started -= JumpAction;
     }
+    #region movement
     private void FixedUpdate()
     {
         Vector2 move = inputs.Player.Movement.ReadValue<Vector2>();
@@ -54,9 +63,22 @@ public class Movement : MonoBehaviour
         if (IsGrounded)
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
     }
+    #endregion
+    #region Health System
+    public void TakeDamage(float dmg)
+    {
+        currentHealth -= dmg;
+    }
+
+    public void Despawn()
+    {
+        OnGO?.Invoke();
+    }
+    #endregion
     void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(groundCheck.position, radius);
     }
+
 }
