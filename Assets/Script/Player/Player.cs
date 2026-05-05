@@ -21,9 +21,18 @@ public class Player : MonoBehaviour, IDamageable
     //health
     [SerializeField] float maxHealth;
     public float currentHealth;
-    public static event Action OnGO;
+    public static event Action OnHit, OnGO;
+
+    public static Player Instance;
     private void Awake()
     {
+        if(Instance != null)
+        {
+            Destroy(Instance);
+            return;
+        }
+        Instance = this;
+
         rb = GetComponent<Rigidbody2D>();
         inputs = new InputMap();
     }
@@ -68,6 +77,7 @@ public class Player : MonoBehaviour, IDamageable
     public void TakeDamage(float dmg)
     {
         currentHealth -= dmg;
+        OnHit?.Invoke();
     }
 
     public void Despawn()

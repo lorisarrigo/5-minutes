@@ -1,16 +1,29 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] TMP_Text timerTXT;
-    //[SerializeField] GameObject timerHolder;
+    [Header("Player Health")]
+    [SerializeField] GameObject heart1;
+    [SerializeField] GameObject heart2;
+    [SerializeField] GameObject heart3;
 
+    [Header("Timer")]
+    [SerializeField] TMP_Text timerTXT;
     [SerializeField] float timer;
-    float minutes;
-    float seconds;
+    float minutes, seconds;
+
     public static event Action OnTimer;
+    private void OnEnable()
+    {
+        Player.OnHit += Defillbar;
+    }
+    private void OnDisable()
+    {
+        Player.OnHit -= Defillbar;
+    }
     private void Update()
     {
         timer -= Time.deltaTime;
@@ -22,5 +35,15 @@ public class UIManager : MonoBehaviour
             timerTXT.gameObject.SetActive(false);
             OnTimer?.Invoke();
         }
+    }
+
+    private void Defillbar()
+    { 
+        if(Player.Instance.currentHealth == 2)
+            heart3.SetActive(false);
+        else if(Player.Instance.currentHealth == 1)
+            heart2.SetActive(false);
+        else if(Player.Instance.currentHealth == 0)
+            heart1.SetActive(false);
     }
 }
