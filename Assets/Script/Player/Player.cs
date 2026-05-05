@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,21 +10,35 @@ public class Player : MonoBehaviour, IDamageable
     Animator anim;
     Rigidbody2D rb;
 
-    //Movement
-    [SerializeField] float baseSpeed, sprintSpeed, currentSpeed; //speed variables
+    [Header("Movement")]
     [SerializeField] SpriteRenderer plSprite;
-    //Jump
+    [SerializeField] float baseSpeed, sprintSpeed;
+    Vector2 move; //used in the SFX coroutines
+    float currentSpeed; //speed variables
+
+    [Header("Jump")]
     [SerializeField] LayerMask ground;
     [SerializeField] Transform groundCheck;
     [SerializeField] float jumpForce;
     [SerializeField] float radius; //range of the GroundCheck
     public bool IsGrounded = false;
 
-    //health
+    [Header("Health")]
     [SerializeField] float maxHealth;
-    public float currentHealth;
-    [SerializeField] float deathDuration; //hit + death animation
+    [HideInInspector] public float currentHealth;
+    [SerializeField] float deathDuration; //death animation
     public static event Action OnHit, OnGO;
+
+    [Header("Sound")]
+    [SerializeField] AudioClip walkingStepSfx;
+    [SerializeField] AudioClip runningStepSfx;
+    [SerializeField] float walkingSfxCooldown, runningSfxCooldown;
+    [SerializeField] AudioClip jumpSfx; 
+    [SerializeField] AudioClip runJumpSfx; 
+    [SerializeField] AudioClip landSfx; 
+    [SerializeField] float landIdleSfxCooldown, landWalkSfxCooldown, landRunSfxCooldown;
+    [SerializeField] AudioClip hitSfx; 
+
 
     public static Player Instance;
     private void Awake()
@@ -45,13 +60,15 @@ public class Player : MonoBehaviour, IDamageable
     {
         currentHealth = maxHealth;
         currentSpeed = baseSpeed;
+        StartCoroutine(Walking());
+        StartCoroutine(Running());
     }
     private void OnEnable()
     {
         inputs.Enable();
-        inputs.Player.Jump.started += JumpAction;
         inputs.Player.Sprint.started += Sprinting;
         inputs.Player.Sprint.canceled += EndSprinting;
+        inputs.Player.Jump.started += JumpAction;
     }
     private void OnDisable()
     {
@@ -64,7 +81,7 @@ public class Player : MonoBehaviour, IDamageable
     private void FixedUpdate()
     {
         IsGrounded = Physics2D.OverlapCircle(groundCheck.position, radius, ground);
-        Vector2 move = inputs.Player.Movement.ReadValue<Vector2>();
+        move = inputs.Player.Movement.ReadValue<Vector2>();
         if (move != Vector2.zero)
         {
             //player flipping
@@ -95,10 +112,11 @@ public class Player : MonoBehaviour, IDamageable
     }
     void JumpAction(InputAction.CallbackContext context)
     {
-        if (IsGrounded)
+        if (Time.timeScale != 0 && IsGrounded)
         {
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             anim.SetTrigger("IsJumping");
+            StartCoroutine(Jump());
         }
     }
     #endregion
@@ -106,7 +124,8 @@ public class Player : MonoBehaviour, IDamageable
     public void TakeDamage(float dmg)
     {
         currentHealth -= dmg;
-        if(currentHealth > 0)
+        SFXManager.instance.PlaySfx(hitSfx);
+        if (currentHealth > 0)
             anim.SetTrigger("IsHitted");
         OnHit?.Invoke();
     }
@@ -114,12 +133,6 @@ public class Player : MonoBehaviour, IDamageable
     public void Despawn()
     {
         StartCoroutine(DeathSequence());
-    }
-    #endregion
-    void OnDrawGizmos()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(groundCheck.position, radius);
     }
     private IEnumerator DeathSequence()
     {
@@ -130,4 +143,52 @@ public class Player : MonoBehaviour, IDamageable
         yield return new WaitForSeconds(deathDuration);
         OnGO?.Invoke();
     }
+    #endregion
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(groundCheck.position, radius);
+    }
+
+    #region walking coroutines
+    IEnumerator Walking()
+    {
+        while (true)
+        {
+            if(IsGrounded && move.magnitude > 0.1f  && !inputs.Player.Sprint.IsPressed())
+                SFXManager.instance.PlaySfx(walkingStepSfx);
+            yield return new WaitForSeconds(walkingSfxCooldown);
+        }
+    }
+    IEnumerator Running()
+    {
+        while (true)
+        {
+            if (IsGrounded && move.magnitude > 0.1f && inputs.Player.Sprint.IsPressed())
+                SFXManager.instance.PlaySfx(runningStepSfx);
+            yield return new WaitForSeconds(runningSfxCooldown);
+        }
+    }
+    IEnumerator Jump()
+    {
+        if(move.magnitude < 0.1f)
+        {
+            SFXManager.instance.PlaySfx(jumpSfx);
+            yield return new WaitForSeconds(landIdleSfxCooldown);
+            SFXManager.instance.PlaySfx(landSfx);
+        }
+        else if (move.magnitude > 0.1f && !inputs.Player.Sprint.IsPressed())
+        {
+            SFXManager.instance.PlaySfx(jumpSfx);
+            yield return new WaitForSeconds(landWalkSfxCooldown);
+            SFXManager.instance.PlaySfx(landSfx);
+        }
+        else if (move.magnitude > 0.1f && inputs.Player.Sprint.IsPressed())
+        {
+            SFXManager.instance.PlaySfx(runJumpSfx);
+            yield return new WaitForSeconds(landRunSfxCooldown);
+            SFXManager.instance.PlaySfx(landSfx);
+        }
+    }
+    #endregion
 }

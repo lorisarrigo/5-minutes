@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,6 +12,8 @@ public class GameManager : MonoBehaviour
     States states;
     InputMap inputs;
     [SerializeField] GameObject PauseScreen, WinScreen, GOScreen;
+    [SerializeField] AudioClip winSfx, gameOverSfx;
+    bool isWinning;
     private void Awake()
     {
         inputs = new InputMap();
@@ -59,6 +62,11 @@ public class GameManager : MonoBehaviour
     }
     private void Win()
     {
+        if (!isWinning)
+        {
+            SFXManager.instance.PlaySfx(winSfx);
+            isWinning = true;
+        }
         Time.timeScale = 0;
         WinScreen.SetActive(true);
     }
@@ -66,5 +74,6 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0;
         GOScreen.SetActive(true);
+        SFXManager.instance.PlaySfx(gameOverSfx);
     }
 }
