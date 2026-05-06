@@ -1441,8 +1441,8 @@ MonoBehaviour:
   PauseScreen: {fileID: 630049925}
   WinScreen: {fileID: 1297611364}
   GOScreen: {fileID: 2126978367}
-  winSfx: {fileID: 8300000, guid: 3e9de1741ea7dba4d881e56b29ba9191, type: 3}
-  gameOverSfx: {fileID: 8300000, guid: f9ae98620805ac6438cf234a81a41128, type: 3}
+  winSfx: {fileID: 8300000, guid: 35cd3cb62e8bba14a89b15ff3d0691c0, type: 3}
+  gameOverSfx: {fileID: 8300000, guid: 79c4a08d45c7d5f4c836847748630d5c, type: 3}
 --- !u!1 &630049925
 GameObject:
   m_ObjectHideFlags: 0
