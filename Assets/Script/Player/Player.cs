@@ -1,9 +1,7 @@
 using System;
 using System.Collections;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
 public class Player : MonoBehaviour, IDamageable
 {
     InputMap inputs;
@@ -33,17 +31,16 @@ public class Player : MonoBehaviour, IDamageable
     [SerializeField] AudioClip walkingStepSfx;
     [SerializeField] AudioClip runningStepSfx;
     [SerializeField] float walkingSfxCooldown, runningSfxCooldown;
-    [SerializeField] AudioClip jumpSfx; 
-    [SerializeField] AudioClip runJumpSfx; 
-    [SerializeField] AudioClip landSfx; 
+    [SerializeField] AudioClip jumpSfx;
+    [SerializeField] AudioClip runJumpSfx;
+    [SerializeField] AudioClip landSfx;
     [SerializeField] float landIdleSfxCooldown, landWalkSfxCooldown, landRunSfxCooldown;
-    [SerializeField] AudioClip hitSfx; 
-
+    [SerializeField] AudioClip hitSfx;
 
     public static Player Instance;
     private void Awake()
     {
-        if(Instance != null)
+        if (Instance != null)
         {
             Destroy(Instance);
             return;
@@ -119,6 +116,7 @@ public class Player : MonoBehaviour, IDamageable
             StartCoroutine(Jump());
         }
     }
+    
     #endregion
     #region Health System
     public void TakeDamage(float dmg)
@@ -155,7 +153,7 @@ public class Player : MonoBehaviour, IDamageable
     {
         while (true)
         {
-            if(IsGrounded && move.magnitude > 0.1f  && !inputs.Player.Sprint.IsPressed())
+            if (IsGrounded && move.magnitude > 0.1f && !inputs.Player.Sprint.IsPressed())
                 SFXManager.instance.PlaySfx(walkingStepSfx);
             yield return new WaitForSeconds(walkingSfxCooldown);
         }
@@ -171,7 +169,7 @@ public class Player : MonoBehaviour, IDamageable
     }
     IEnumerator Jump()
     {
-        if(move.magnitude < 0.1f)
+        if (move.magnitude < 0.1f)
         {
             SFXManager.instance.PlaySfx(jumpSfx);
             yield return new WaitForSeconds(landIdleSfxCooldown);

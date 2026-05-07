@@ -1,10 +1,9 @@
 using UnityEngine;
 
-public class EnemyBehaviour : MonoBehaviour
+public abstract class Damage : MonoBehaviour
 {
     GameObject collObj;
-    [SerializeField] float Dam;
-    private void OnTriggerEnter2D(Collider2D other)
+    protected void OnTriggerEnter2D(Collider2D other)
     {
         collObj = other.gameObject;
 
@@ -13,7 +12,7 @@ public class EnemyBehaviour : MonoBehaviour
         collObj.TryGetComponent(out Player pl);
 
         if (dmg == null) return;
-        dmg.TakeDamage(Dam);
+        dmg.TakeDamage(1);
 
         if (pl == null) return;
         if (pl.currentHealth <= 0)
