@@ -12,12 +12,17 @@ public class GameManager : MonoBehaviour
     States states;
     InputMap inputs;
     [SerializeField] GameObject PauseScreen, WinScreen, GOScreen;
-    [SerializeField] AudioClip winSfx, gameOverSfx;
+    [SerializeField] AudioClip bgMusic, winSfx, gameOverSfx;
+    [SerializeField] float musicDuration;
     bool isWinning;
     private void Awake()
     {
         inputs = new InputMap();
         states = States.Running;
+    }
+    private void Start()
+    {
+        StartCoroutine(BgMusic());
     }
     private void OnEnable()
     {
@@ -72,8 +77,22 @@ public class GameManager : MonoBehaviour
     }
     private void GameOver()
     {
+        Destroy(MusicManager.instance.audioSource);
         Time.timeScale = 0;
         GOScreen.SetActive(true);
         SFXManager.instance.PlaySfx(gameOverSfx);
+    }
+
+    IEnumerator BgMusic()
+    {
+        while(true)
+        {
+            MusicManager.instance.PlayBg(bgMusic);
+
+            if(isWinning)
+                Destroy(MusicManager.instance.audioSource);
+
+            yield return new WaitForSeconds(musicDuration);
+        }
     }
 }

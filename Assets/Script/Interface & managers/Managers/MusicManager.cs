@@ -31,4 +31,15 @@ public class MusicManager : MonoBehaviour
 
         Destroy(audioSource);
     }
+    private void Update()
+    {
+        if (Time.timeScale == 0)
+        {
+            audioSource.Pause();
+        }
+        else if (Time.timeScale == 1f)
+        {
+            audioSource.UnPause();
+        }
+    }
 }

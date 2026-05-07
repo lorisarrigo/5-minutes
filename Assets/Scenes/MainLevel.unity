@@ -1598,8 +1598,10 @@ MonoBehaviour:
   PauseScreen: {fileID: 630049925}
   WinScreen: {fileID: 1297611364}
   GOScreen: {fileID: 2126978367}
+  bgMusic: {fileID: 8300000, guid: 8e3127c850dfde04caff8f8791cf1afc, type: 3}
   winSfx: {fileID: 8300000, guid: 35cd3cb62e8bba14a89b15ff3d0691c0, type: 3}
   gameOverSfx: {fileID: 8300000, guid: 79c4a08d45c7d5f4c836847748630d5c, type: 3}
+  musicDuration: 300
 --- !u!1 &630049925
 GameObject:
   m_ObjectHideFlags: 0
@@ -4595,7 +4597,7 @@ GameObject:
   - component: {fileID: 1931768770}
   - component: {fileID: 1931768771}
   m_Layer: 0
-  m_Name: Ground (1)
+  m_Name: SkyBlocker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
