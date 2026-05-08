@@ -5689,7 +5689,7 @@ MonoBehaviour:
   - {fileID: 1288885950}
   fireBPrefab: {fileID: 1863388656008539288, guid: 5d6061dd638d0f7408be783cebdfb769, type: 3}
   fireCPrefab: {fileID: 7019489679852692441, guid: 61ec5505586cff94e9c5b26c3339f396, type: 3}
-  iceBPrefab: {fileID: 8537248239938656591, guid: 292774f0e76cdc9498593609296249e0, type: 3}
+  iceBPrefab: {fileID: 6057274743617051965, guid: 292774f0e76cdc9498593609296249e0, type: 3}
   earthBPrefab: {fileID: 4033972626403734617, guid: 54794ec8dd69bc347a26bf6c82f0f3f3, type: 3}
   ripetition: 0
 --- !u!1 &2006280595
