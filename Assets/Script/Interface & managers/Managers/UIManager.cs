@@ -9,6 +9,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject heart1;
     [SerializeField] GameObject heart2;
     [SerializeField] GameObject heart3;
+    [SerializeField] GameObject heart4;
+    [SerializeField] GameObject heart5;
 
     [Header("Timer")]
     [SerializeField] TMP_Text timerTXT;
@@ -39,7 +41,11 @@ public class UIManager : MonoBehaviour
 
     private void Defillbar()
     { 
-        if(Player.Instance.currentHealth == 2)
+        if(Player.Instance.currentHealth == 4)
+            heart5.SetActive(false);
+        else if(Player.Instance.currentHealth == 3)
+            heart4.SetActive(false);
+        else if(Player.Instance.currentHealth == 2)
             heart3.SetActive(false);
         else if(Player.Instance.currentHealth == 1)
             heart2.SetActive(false);
