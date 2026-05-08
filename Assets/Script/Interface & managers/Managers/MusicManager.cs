@@ -33,6 +33,7 @@ public class MusicManager : MonoBehaviour
     }
     private void Update()
     {
+        if (audioSource == null) return;
         if (Time.timeScale == 0)
         {
             audioSource.Pause();

@@ -11,15 +11,11 @@ public class Bullet : Damage
     {
         rb = GetComponent<Rigidbody2D>();
     }
-    new private void OnTriggerEnter2D(Collider2D collision)
-    {
-        base.OnTriggerEnter2D(collision);
-    }
     private void OnTriggerExit2D(Collider2D other)
     {
         GameObject CollObj;
         CollObj = other.gameObject;
-        if (CollObj.layer== layerIndex) return;
+        if (CollObj.layer== layerIndex || CollObj.layer == layerIndex2) return;
         gameObject.SetActive(false);
     }
     private void FixedUpdate()
