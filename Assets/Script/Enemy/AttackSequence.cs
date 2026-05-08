@@ -6,24 +6,31 @@ public class AttackSequence : MonoBehaviour
     [SerializeField] EarthPooler ErPool;
     [SerializeField] IcePooler IcePool;
     [SerializeField] FireColPooler fireColPool;
+    [SerializeField] FireBallPooler fireBPool;
+    [SerializeField] LaserPooler laserPool;
 
     [Header("SpawnPoints")]
     [SerializeField] Transform[] fireBSpawn;
     public Transform[] fireCSpawn;
     [SerializeField] Transform[] iceBSpawn; //0-6: up; 7-9: Left; 10-12: right;
     [SerializeField] Transform[] earthBSpawn;
+    [SerializeField] GameObject[] LaserSpawn;
 
     [Header("Prefabs")]
     [SerializeField] GameObject fireBPrefab;
     [SerializeField] GameObject fireCPrefab;
     [SerializeField] GameObject iceBPrefab;
     [SerializeField] GameObject earthBPrefab;
+    [SerializeField] GameObject laserPrefab;
 
     [Header("Counters")]
     [SerializeField] int ripetition;
-    //[SerializeField] int fireBCounter;
-    //[SerializeField] int iceBCounter;
-    //[SerializeField] int earthBCounter;
+
+    [Header("Laser")]
+    public Vector3 targetScale;
+    public Vector3 amplifyScale;
+    public float laserfinalPos;
+    public float duration;
 
     public static AttackSequence Instance;
     private void Awake()
@@ -36,9 +43,9 @@ public class AttackSequence : MonoBehaviour
         Instance = this;
     }
 
-        void Start()
+    void Start()
     {
-        StartCoroutine(Attacks());   
+        StartCoroutine(Attacks());
     }
     IEnumerator Attacks()
     {
@@ -102,6 +109,26 @@ public class AttackSequence : MonoBehaviour
             IcePool.GetBullet(iceBPrefab, iceBSpawn[12].position, iceBSpawn[12].rotation);
             yield return new WaitForSeconds(1);
             IcePool.GetBullet(iceBPrefab, iceBSpawn[9].position, iceBSpawn[9].rotation);
+            ripetition--;
+        }
+        #endregion
+        #region third Attack
+        ripetition = 2;
+        while (ripetition > 0)
+        {
+            yield return new WaitForSeconds(5);
+            LaserSpawn[0].SetActive(true);
+            LaserSpawn[1].SetActive(true);
+            laserPool.GetBullet(laserPrefab, LaserSpawn[0].transform.position, LaserSpawn[0].transform.rotation);
+            laserPool.GetBullet(laserPrefab, LaserSpawn[1].transform.position, LaserSpawn[1].transform.rotation);
+            fireBPool.GetBullet(fireBPrefab, fireBSpawn[0].position, fireBSpawn[0].rotation);
+            yield return new WaitForSeconds(3);
+            fireBPool.GetBullet(fireBPrefab, fireBSpawn[1].position, fireBSpawn[1].rotation);
+            yield return new WaitForSeconds(3);
+            fireBPool.GetBullet(fireBPrefab, fireBSpawn[0].position, fireBSpawn[0].rotation);
+            fireBPool.GetBullet(fireBPrefab, fireBSpawn[1].position, fireBSpawn[1].rotation);
+            LaserSpawn[0].SetActive(false);
+            LaserSpawn[1].SetActive(false);
             ripetition--;
         }
         #endregion
