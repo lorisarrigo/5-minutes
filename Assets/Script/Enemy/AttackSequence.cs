@@ -3,7 +3,9 @@ using UnityEngine;
 
 public class AttackSequence : MonoBehaviour
 {
-    [SerializeField] ItemPooler Pooler;
+    [SerializeField] EarthPooler ErPool;
+    [SerializeField] IcePooler IcePool;
+    [SerializeField] FireColPooler fireColPool;
 
     [Header("SpawnPoints")]
     [SerializeField] Transform[] fireBSpawn;
@@ -59,29 +61,29 @@ public class AttackSequence : MonoBehaviour
         {
             yield return new WaitForSeconds(1);
             //Earth L->R Ice R->L
-            Pooler.GetBullet(earthBPrefab, earthBSpawn[0].position, earthBSpawn[0].rotation);
+            ErPool.GetBullet(earthBPrefab, earthBSpawn[0].position, earthBSpawn[0].rotation);
             yield return new WaitForSeconds(0.25f);
-            Pooler.GetBullet(earthBPrefab, earthBSpawn[1].position, earthBSpawn[1].rotation);
-            Pooler.GetBullet(iceBPrefab, iceBSpawn[1].position, iceBSpawn[1].rotation);
+            ErPool.GetBullet(earthBPrefab, earthBSpawn[1].position, earthBSpawn[1].rotation);
+            IcePool.GetBullet(iceBPrefab, iceBSpawn[1].position, iceBSpawn[1].rotation);
             yield return new WaitForSeconds(0.25f);
-            Pooler.GetBullet(earthBPrefab, earthBSpawn[2].position, earthBSpawn[2].rotation);
-            Pooler.GetBullet(iceBPrefab, iceBSpawn[3].position, iceBSpawn[3].rotation);
+            ErPool.GetBullet(earthBPrefab, earthBSpawn[2].position, earthBSpawn[2].rotation);
+            IcePool.GetBullet(iceBPrefab, iceBSpawn[3].position, iceBSpawn[3].rotation);
             yield return new WaitForSeconds(0.25f);
-            Pooler.GetBullet(earthBPrefab, earthBSpawn[3].position, earthBSpawn[3].rotation);
-            Pooler.GetBullet(iceBPrefab, iceBSpawn[5].position, iceBSpawn[5].rotation);
+            ErPool.GetBullet(earthBPrefab, earthBSpawn[3].position, earthBSpawn[3].rotation);
+            IcePool.GetBullet(iceBPrefab, iceBSpawn[5].position, iceBSpawn[5].rotation);
             //Earth R->L Ice L->R
             yield return new WaitForSeconds(2.7f);
-            Pooler.GetBullet(earthBPrefab, earthBSpawn[3].position, earthBSpawn[3].rotation);
-            Pooler.GetBullet(iceBPrefab, iceBSpawn[6].position, iceBSpawn[6].rotation);
+            ErPool.GetBullet(earthBPrefab, earthBSpawn[3].position, earthBSpawn[3].rotation);
+            IcePool.GetBullet(iceBPrefab, iceBSpawn[6].position, iceBSpawn[6].rotation);
             yield return new WaitForSeconds(0.25f);
-            Pooler.GetBullet(earthBPrefab, earthBSpawn[2].position, earthBSpawn[2].rotation);
-            Pooler.GetBullet(iceBPrefab, iceBSpawn[4].position, iceBSpawn[4].rotation);
+            ErPool.GetBullet(earthBPrefab, earthBSpawn[2].position, earthBSpawn[2].rotation);
+            IcePool.GetBullet(iceBPrefab, iceBSpawn[4].position, iceBSpawn[4].rotation);
             yield return new WaitForSeconds(0.25f);
-            Pooler.GetBullet(earthBPrefab, earthBSpawn[1].position, earthBSpawn[1].rotation);
-            Pooler.GetBullet(iceBPrefab, iceBSpawn[2].position, iceBSpawn[2].rotation);
+            ErPool.GetBullet(earthBPrefab, earthBSpawn[1].position, earthBSpawn[1].rotation);
+            IcePool.GetBullet(iceBPrefab, iceBSpawn[2].position, iceBSpawn[2].rotation);
             yield return new WaitForSeconds(0.25f);
-            Pooler.GetBullet(earthBPrefab, earthBSpawn[0].position, earthBSpawn[0].rotation);
-            Pooler.GetBullet(iceBPrefab, iceBSpawn[0].position, iceBSpawn[0].rotation);
+            ErPool.GetBullet(earthBPrefab, earthBSpawn[0].position, earthBSpawn[0].rotation);
+            IcePool.GetBullet(iceBPrefab, iceBSpawn[0].position, iceBSpawn[0].rotation);
             ripetition--;
         }
         #endregion
@@ -90,16 +92,16 @@ public class AttackSequence : MonoBehaviour
         while (ripetition > 0)
         {
             yield return new WaitForSeconds(5);
-            Pooler.GetBullet(fireCPrefab, fireCSpawn[0].position + new Vector3(0, 0.5f), fireCSpawn[0].rotation);
-            Pooler.GetBullet(iceBPrefab, iceBSpawn[9].position, iceBSpawn[9].rotation);
+            fireColPool.GetBullet(fireCPrefab, fireCSpawn[0].position + new Vector3(0, 0.5f), fireCSpawn[0].rotation);
+            IcePool.GetBullet(iceBPrefab, iceBSpawn[9].position, iceBSpawn[9].rotation);
             yield return new WaitForSeconds(1);
-            Pooler.GetBullet(iceBPrefab, iceBSpawn[12].position, iceBSpawn[12].rotation);
+            IcePool.GetBullet(iceBPrefab, iceBSpawn[12].position, iceBSpawn[12].rotation);
 
             yield return new WaitForSeconds(5);
-            Pooler.GetBullet(fireCPrefab, fireCSpawn[1].position + new Vector3(0, 1f), fireCSpawn[1].rotation);
-            Pooler.GetBullet(iceBPrefab, iceBSpawn[12].position, iceBSpawn[12].rotation);
+            fireColPool.GetBullet(fireCPrefab, fireCSpawn[1].position + new Vector3(0, 1f), fireCSpawn[1].rotation);
+            IcePool.GetBullet(iceBPrefab, iceBSpawn[12].position, iceBSpawn[12].rotation);
             yield return new WaitForSeconds(1);
-            Pooler.GetBullet(iceBPrefab, iceBSpawn[9].position, iceBSpawn[9].rotation);
+            IcePool.GetBullet(iceBPrefab, iceBSpawn[9].position, iceBSpawn[9].rotation);
             ripetition--;
         }
         #endregion

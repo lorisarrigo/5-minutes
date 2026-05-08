@@ -586,6 +586,51 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1 &324146750
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 324146751}
+  - component: {fileID: 324146752}
+  m_Layer: 0
+  m_Name: 'Ice Pooler '
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &324146751
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 324146750}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 346620301}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &324146752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 324146750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69e2d3dd9ccf63a4bb67e8d1ad4d5006, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemPooler2
+  pool_BulletPrefab: []
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -723,6 +768,40 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
+--- !u!1 &346620300
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 346620301}
+  m_Layer: 0
+  m_Name: Poolers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &346620301
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 346620300}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1590652315}
+  - {fileID: 324146751}
+  - {fileID: 526254940}
+  m_Father: {fileID: 427888444}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &346720017
 GameObject:
   m_ObjectHideFlags: 0
@@ -1606,7 +1685,7 @@ Transform:
   - {fileID: 502912679}
   - {fileID: 1487141008}
   - {fileID: 1998611063}
-  - {fileID: 1590652315}
+  - {fileID: 346620301}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &456267211
@@ -1815,6 +1894,51 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: 30, z: 0}
+--- !u!1 &526254939
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 526254940}
+  - component: {fileID: 526254941}
+  m_Layer: 0
+  m_Name: Fire Collumn Pooler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &526254940
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 526254939}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 346620301}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &526254941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 526254939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8634ec0784a3c4f4eabf0ca68ce3a587, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LavaPooler
+  pool_BulletPrefab: []
 --- !u!1 &530547193
 GameObject:
   m_ObjectHideFlags: 0
@@ -4637,7 +4761,7 @@ GameObject:
   - component: {fileID: 1590652315}
   - component: {fileID: 1590652316}
   m_Layer: 0
-  m_Name: Item Pooler
+  m_Name: Earth Pooler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4651,12 +4775,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1590652314}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 427888444}
+  m_Father: {fileID: 346620301}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1590652316
 MonoBehaviour:
@@ -5661,7 +5785,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 663ca7ac5fa3d9048a7c21d048d20f73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AttackSequence
-  Pooler: {fileID: 1590652316}
+  ErPool: {fileID: 1590652316}
+  IcePool: {fileID: 324146752}
+  fireColPool: {fileID: 526254941}
   fireBSpawn:
   - {fileID: 768724242}
   - {fileID: 687703972}
@@ -5690,7 +5816,7 @@ MonoBehaviour:
   fireBPrefab: {fileID: 1863388656008539288, guid: 5d6061dd638d0f7408be783cebdfb769, type: 3}
   fireCPrefab: {fileID: 7019489679852692441, guid: 61ec5505586cff94e9c5b26c3339f396, type: 3}
   iceBPrefab: {fileID: 6057274743617051965, guid: 292774f0e76cdc9498593609296249e0, type: 3}
-  earthBPrefab: {fileID: 4033972626403734617, guid: 54794ec8dd69bc347a26bf6c82f0f3f3, type: 3}
+  earthBPrefab: {fileID: 1865220871861217488, guid: 22f478ae45f048646ba0fbc1e7e42e52, type: 3}
   ripetition: 0
 --- !u!1 &2006280595
 GameObject:

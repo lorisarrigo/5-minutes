@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemPooler : MonoBehaviour
+public class EarthPooler : MonoBehaviour
 {
     [SerializeField] List<GameObject> pool_BulletPrefab = new();
 
